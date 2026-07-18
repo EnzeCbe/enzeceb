@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Enes Yiğit Cebeci</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; gap: 0; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Enes <em>Cebeci</em></a>
+    <div class="navlinks">
+      <a href="/work.html" class="active">Work</a>
+      <a href="/awards.html">Awards</a>
+      <a href="/beliefs.html">Beliefs</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="page-header reveal">
+      <div class="page-eyebrow">Work</div>
+      <h1 class="page-title">Research &<br><em>Ventures</em></h1>
+      <p class="page-desc">Physics research, health tech startups, and writing — all pointing in the same direction.</p>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="group-label">Research</div>
+        <div class="item-list">
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Quantum Tunneling in Enzymatic C–H Activation</div>
+              <div class="item-tag">In progress</div>
+            </div>
+            <div class="item-desc">WKB numerical simulation of proton tunneling through asymmetric Eckart barriers. Kinetic isotope effect modeling and tunneling-corrected Arrhenius analysis in Python. Mentored by Doç. Dr. Ertuğrul Karaca (Nature editor, 2× Physical Review Letters). Targeting Journal of Emerging Investigators.</div>
+          </div>
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Quantum-Assisted Hurricane Forecasting</div>
+              <div class="item-tag">Submitted</div>
+            </div>
+            <div class="item-desc">Theoretical argument for quantum reservoir computing in chaotic atmospheric modeling. References a 2026 Physical Review Letters result showing a 9-qubit processor outperforming classical neural networks on real-world weather forecasting. Submitted to Pathways to Quantum, Global Industry Challenge — July 2026.</div>
+          </div>
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Proton Beam Therapy — Bragg Peak Modeling</div>
+              <div class="item-tag">Planned</div>
+            </div>
+            <div class="item-desc">Computational modeling of Bragg peak position in heterogeneous biological tissue. Interdisciplinary collaboration with a biology researcher. Python-based Bethe-Bloch implementation targeting variable RBE modeling.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="group-label">Ventures</div>
+        <div class="item-list">
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Corlumen</div>
+              <div class="item-tag">Stealth · Founder</div>
+            </div>
+            <div class="item-desc">Cardiovascular diagnostics startup. ESP32-based wearable biosensor (EKG, pulse, temperature) with Fourier-based real-time arrhythmia detection and an ML risk-scoring layer. Goal: make early cardiac screening accessible without a hospital visit.</div>
+          </div>
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Netra</div>
+              <div class="item-tag">Co-founder</div>
+            </div>
+            <div class="item-desc">Peer academic mentoring platform for IB and IGCSE students. The best guide through a curriculum is someone who just came out the other side.</div>
+          </div>
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Wondria</div>
+              <div class="item-tag">Writer</div>
+            </div>
+            <div class="item-desc">Science writing at the intersection of physics, biology, and technology.</div>
+          </div>
+          <div class="item">
+            <div class="item-top">
+              <div class="item-name">Teens in Innovation</div>
+              <div class="item-tag">Intern · 2026</div>
+            </div>
+            <div class="item-desc">Competitive internship program placing student innovators in real-world projects.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>Enes Yiğit Cebeci · Istanbul</div>
+  <span>2026</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

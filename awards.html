@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awards — Enes Yiğit Cebeci</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .award-grid { display: flex; flex-direction: column; }
+  .award-item {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s;
+  }
+  .award-item:last-child { border-bottom: none; }
+  .award-item:hover { padding-left: 6px; }
+  .award-name { font-weight: 500; font-size: 0.97rem; margin-bottom: 5px; }
+  .award-detail { font-size: 0.85rem; color: var(--text-dim); font-weight: 300; line-height: 1.6; }
+  .award-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green-bright); padding: 5px 12px;
+    border: 1px solid rgba(90,158,118,0.25); border-radius: 100px;
+    white-space: nowrap; margin-top: 2px;
+  }
+  @media (max-width: 640px) { .award-item { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Enes <em>Cebeci</em></a>
+    <div class="navlinks">
+      <a href="/work.html">Work</a>
+      <a href="/awards.html" class="active">Awards</a>
+      <a href="/beliefs.html">Beliefs</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="page-header reveal">
+      <div class="page-eyebrow">Awards</div>
+      <h1 class="page-title">Competitions<br>& <em>Programs</em></h1>
+      <p class="page-desc">Recognitions, acceptances, and competitions — things I've been part of.</p>
+    </div>
+
+    <div class="award-grid reveal">
+      <div class="award-item">
+        <div>
+          <div class="award-name">Exposure AI Academy</div>
+          <div class="award-detail">Full scholarship. One of 30 students selected globally. AI and health technology focus. Praised in admissions interview — Summer 2026.</div>
+        </div>
+        <div class="award-badge">Full scholarship</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">GQMC 2026</div>
+          <div class="award-detail">Global Quantum Mechanics Challenge — Semi-Finalist. International competition open to high school and undergraduate students worldwide.</div>
+        </div>
+        <div class="award-badge">Semi-finalist</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">John Locke Global Essay Prize</div>
+          <div class="award-detail">Philosophy — Shortlisted for prize. Essay arguing theology offers a more complete framework than neuroscience for understanding religious experience. Commendation & bursary recipient.</div>
+        </div>
+        <div class="award-badge">Shortlisted</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">JLI Summer School</div>
+          <div class="award-detail">Applied Mathematics programme, John Locke Institute. Financial aid bursary awarded.</div>
+        </div>
+        <div class="award-badge">Bursary</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">Teens in Innovation</div>
+          <div class="award-detail">Competitive internship program placing student innovators in real-world projects. Accepted Summer 2026.</div>
+        </div>
+        <div class="award-badge">Accepted</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">Breakthrough Junior Challenge</div>
+          <div class="award-detail">Heisenberg's Uncertainty Principle — 2-minute animated science explainer. In production, deadline September 2026.</div>
+        </div>
+        <div class="award-badge">In production</div>
+      </div>
+      <div class="award-item">
+        <div>
+          <div class="award-name">American Physical Society</div>
+          <div class="award-detail">Member.</div>
+        </div>
+        <div class="award-badge">Member</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>Enes Yiğit Cebeci · Istanbul</div>
+  <span>2026</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

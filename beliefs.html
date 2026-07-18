@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beliefs — Enes Yiğit Cebeci</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .beliefs-list { display: flex; flex-direction: column; gap: 0; }
+  .belief {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 32px 1fr; gap: 20px;
+    align-items: start;
+    transition: padding-left 0.2s;
+  }
+  .belief:last-child { border-bottom: none; }
+  .belief:hover { padding-left: 4px; }
+  .belief-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: var(--text-dimmer);
+    padding-top: 4px; letter-spacing: 0.06em;
+  }
+  .belief-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.4; letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .belief-text em { font-style: italic; color: var(--green-bright); }
+  .belief-sub {
+    margin-top: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; color: var(--text-dim);
+    font-weight: 300; line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Enes <em>Cebeci</em></a>
+    <div class="navlinks">
+      <a href="/work.html">Work</a>
+      <a href="/awards.html">Awards</a>
+      <a href="/beliefs.html" class="active">Beliefs</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="page-header reveal">
+      <div class="page-eyebrow">Beliefs</div>
+      <h1 class="page-title">What I think<br>is <em>true</em></h1>
+      <p class="page-desc">Things I keep coming back to. Some of these took years to figure out. Some I still don't fully understand.</p>
+    </div>
+
+    <div class="beliefs-list reveal">
+      <div class="belief">
+        <div class="belief-num">01</div>
+        <div>
+          <div class="belief-text">God #1, always. <em>Love God no matter what.</em> He loves us.</div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">02</div>
+        <div>
+          <div class="belief-text">Everybody has the potential to become someone. <em>They just don't know it yet.</em></div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">03</div>
+        <div>
+          <div class="belief-text"><em>Failure beats trying to be perfect.</em></div>
+          <div class="belief-sub">Perfect is a moving target. Failure is data.</div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">04</div>
+        <div>
+          <div class="belief-text">Always tell the truth.</div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">05</div>
+        <div>
+          <div class="belief-text">Never put off something tomorrow that <em>can be done today.</em></div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">06</div>
+        <div>
+          <div class="belief-text">Being cringe is never cringe. <em>Just the saying of it is cringe.</em></div>
+        </div>
+      </div>
+      <div class="belief">
+        <div class="belief-num">07</div>
+        <div>
+          <div class="belief-text">You are never behind in life.</div>
+          <div class="belief-sub">The closer you get to the sun, the bigger the shadow grows behind you — ignore the shadow.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>Enes Yiğit Cebeci · Istanbul</div>
+  <span>2026</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

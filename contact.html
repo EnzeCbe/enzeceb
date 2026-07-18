@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Enes Yiğit Cebeci</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .contact-block { max-width: 480px; }
+  .contact-block p { color: var(--text-dim); font-size: 1rem; font-weight: 300; line-height: 1.8; margin-bottom: 36px; }
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 64px; }
+  .contact-note {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.88rem; color: var(--text-dim);
+    font-weight: 300; line-height: 1.7;
+  }
+  .contact-note strong { color: var(--text); font-weight: 500; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Enes <em>Cebeci</em></a>
+    <div class="navlinks">
+      <a href="/work.html">Work</a>
+      <a href="/awards.html">Awards</a>
+      <a href="/beliefs.html">Beliefs</a>
+      <a href="/contact.html" class="active">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="page-header reveal">
+      <div class="page-eyebrow">Contact</div>
+      <h1 class="page-title">Get in<br><em>touch</em></h1>
+    </div>
+
+    <div class="contact-block reveal">
+      <p>I'm open to research collaborations, mentorship, and conversations about physics, AI, and health technology. If you're working on something interesting, reach out.</p>
+      <div class="contact-links">
+        <a href="mailto:eycebeci61@gmail.com" class="btn btn-primary">Email me</a>
+        <a href="https://www.linkedin.com/in/enesyigitcebeci" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+      <div class="contact-note">
+        <strong>Based in Istanbul, Turkey.</strong> Open to remote research collaborations and mentorship anywhere. Response time is usually within a day or two.
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>Enes Yiğit Cebeci · Istanbul</div>
+  <span>2026</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

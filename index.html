@@ -4,572 +4,193 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enes Yiğit Cebeci</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-  :root {
-    --bg: #08080D;
-    --surface: #141420;
-    --surface2: #1E1E2E;
-    --text: #EDEBE6;
-    --text-dim: rgba(237,235,230,0.5);
-    --text-dimmer: rgba(237,235,230,0.28);
-    --green: #3D6B52;
-    --green-bright: #5A9E76;
-    --border: rgba(255,255,255,0.07);
-    --border-hover: rgba(255,255,255,0.14);
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  .wrap {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-
-  /* ── CANVAS BACKGROUND ── */
-  #wave-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.30;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 0 32px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(8,8,13,0.8);
-    backdrop-filter: blur(16px);
-  }
-  nav .inner {
-    max-width: 1000px; margin: 0 auto;
-    display: flex; align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-  .nav-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1rem;
-    letter-spacing: 0.01em;
-    color: var(--text);
-  }
-  .nav-logo span { color: var(--green-bright); font-style: italic; }
-  .navlinks {
-    display: flex; gap: 28px;
-    font-size: 0.82rem; font-weight: 500;
-    color: var(--text-dim); letter-spacing: 0.02em;
-  }
-  .navlinks a { transition: color 0.15s; }
-  .navlinks a:hover { color: var(--text); }
-
-  /* ── HERO ── */
   .hero {
-    position: relative; z-index: 1;
     min-height: 100vh;
     display: flex; align-items: center;
     padding: 120px 0 80px;
+    position: relative;
   }
+  canvas#bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none; opacity: 0.4;
+  }
+  .hero-content { position: relative; z-index: 1; width: 100%; }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 64px;
-    align-items: start;
-    width: 100%;
+    grid-template-columns: 1fr 320px;
+    gap: 64px; align-items: start;
   }
-
-  .hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--green-bright);
-    letter-spacing: 0.1em;
-    margin-bottom: 24px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    width: 24px; height: 1px;
-    background: var(--green-bright);
-    display: inline-block;
-  }
-
   h1.hero-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(3rem, 6vw, 5rem);
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    margin-bottom: 28px;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.0; letter-spacing: -0.03em;
+    margin-bottom: 24px;
   }
-  h1.hero-name em {
-    font-style: italic;
-    color: var(--green-bright);
+  h1.hero-name em { font-style: italic; color: var(--green-bright); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-dim);
+    max-width: 440px; line-height: 1.8;
+    font-weight: 300; margin-bottom: 36px;
   }
-
-  .hero-bio {
-    font-size: 1.05rem;
-    color: var(--text-dim);
-    max-width: 460px;
-    line-height: 1.8;
-    margin-bottom: 36px;
-    font-weight: 300;
-  }
-
-  .hero-links { display: flex; gap: 12px; }
-  .btn {
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .btn-primary {
-    background: var(--green);
-    color: var(--text);
-    border: 1px solid var(--green);
-  }
-  .btn-primary:hover { background: var(--green-bright); border-color: var(--green-bright); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-dim);
-    border: 1px solid var(--border);
-  }
-  .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
-
-  /* Right side status cards */
-  .status-stack { display: flex; flex-direction: column; gap: 10px; padding-top: 8px; }
+  .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .status-stack { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
   .status-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 18px;
+    border-radius: 10px; padding: 16px 18px;
     transition: border-color 0.2s, transform 0.2s;
   }
-  .status-card:hover {
-    border-color: var(--border-hover);
-    transform: translateX(4px);
-  }
+  .status-card:hover { border-color: var(--border-hover); transform: translateX(3px); }
   .status-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-dimmer);
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dimmer);
     margin-bottom: 5px;
   }
-  .status-value {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .status-sub {
-    font-size: 0.78rem;
-    color: var(--text-dimmer);
-    margin-top: 3px;
-  }
-  .live-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green-bright);
-    flex-shrink: 0;
-    animation: livepulse 2s ease-in-out infinite;
-  }
-  @keyframes livepulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-
-  /* ── SECTIONS ── */
-  .section {
+  .status-value { font-size: 0.88rem; font-weight: 500; }
+  .status-sub { font-size: 0.76rem; color: var(--text-dimmer); margin-top: 3px; }
+  .nav-row {
     position: relative; z-index: 1;
-    padding: 80px 0;
-    border-top: 1px solid var(--border);
+    padding: 60px 0;
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 12px; border-top: 1px solid var(--border);
   }
-
-  .section-header {
-    display: flex; align-items: baseline;
-    gap: 16px; margin-bottom: 40px;
-  }
-  h2.sec-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-  .sec-count {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-dimmer);
-    letter-spacing: 0.08em;
-  }
-
-  /* Two column work grid */
-  .work-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-  .work-group-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    margin-bottom: 20px;
-  }
-
-  .work-item {
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border);
-    transition: border-color 0.2s;
-  }
-  .work-item:last-child { border-bottom: none; }
-  .work-item:hover { border-color: var(--border-hover); }
-
-  .work-name {
-    font-weight: 500;
-    font-size: 0.97rem;
-    margin-bottom: 6px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .work-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    flex-shrink: 0;
-  }
-  .work-desc {
-    font-size: 0.88rem;
-    color: var(--text-dim);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  /* Awards */
-  .awards-list { display: flex; flex-direction: column; }
-  .award-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 20px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--border);
+  .nav-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 22px;
     transition: all 0.2s;
+    display: flex; flex-direction: column; gap: 6px;
   }
-  .award-item:last-child { border-bottom: none; }
-  .award-item:hover { padding-left: 8px; }
-  .award-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 4px; }
-  .award-detail { font-size: 0.83rem; color: var(--text-dim); font-weight: 300; }
-  .award-badge {
+  .nav-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+  .nav-card-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    padding: 4px 10px;
-    border: 1px solid rgba(90,158,118,0.25);
-    border-radius: 100px;
-    white-space: nowrap;
-    margin-top: 2px;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--green-bright);
   }
-
-  /* Contact */
-  .contact-inner { max-width: 480px; }
-  .contact-inner h2 { margin-bottom: 12px; }
-  .contact-inner p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 28px; font-weight: 300; }
-
-  /* Footer */
-  footer {
-    position: relative; z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 28px 0;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-dimmer);
-    letter-spacing: 0.06em;
-  }
-  footer .green { color: var(--green-bright); }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
+  .nav-card-title { font-size: 0.95rem; font-weight: 500; }
+  .nav-card-desc { font-size: 0.8rem; color: var(--text-dimmer); font-weight: 300; }
   @media (max-width: 768px) {
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .work-cols { grid-template-columns: 1fr; gap: 0; }
-    .navlinks { display: none; }
-    .hero { padding: 100px 0 60px; }
-    .section { padding: 60px 0; }
-    .award-item { grid-template-columns: 1fr; }
+    .nav-row { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- Ambient wave background -->
-<canvas id="wave-canvas"></canvas>
+<canvas id="bg"></canvas>
 
 <nav>
   <div class="inner">
-    <div class="nav-logo">Enes Yiğit <span>Cebeci</span></div>
+    <a href="/" class="nav-logo">Enes <em>Cebeci</em></a>
     <div class="navlinks">
-      <a href="#work">Work</a>
-      <a href="#awards">Awards</a>
-      <a href="#contact">Contact</a>
+      <a href="/work.html">Work</a>
+      <a href="/awards.html">Awards</a>
+      <a href="/beliefs.html">Beliefs</a>
+      <a href="/contact.html">Contact</a>
     </div>
   </div>
 </nav>
 
-<div class="wrap">
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-grid">
+          <div>
+            <div class="page-eyebrow">Istanbul, Turkey · 16</div>
+            <h1 class="hero-name">Physics<br>researcher.<br><em>Health tech</em><br>founder.</h1>
+            <p class="hero-sub">I'm a 16-year-old student working on physics, AI, and health technology. I try to build things I wish existed.</p>
+            <div class="hero-links">
+              <a href="/work.html" class="btn btn-primary">My work</a>
+              <a href="/beliefs.html" class="btn btn-ghost">What I believe</a>
+              <a href="/contact.html" class="btn btn-ghost">Get in touch</a>
+            </div>
+          </div>
+          <div class="status-stack">
+            <div class="status-card">
+              <div class="status-label">Active</div>
+              <div class="status-value"><span class="live-dot"></span>Corlumen — Stealth</div>
+              <div class="status-sub">Cardiovascular diagnostics startup</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Competition</div>
+              <div class="status-value">GQMC 2026 Semi-Finalist</div>
+              <div class="status-sub">Global Quantum Mechanics Challenge</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Research</div>
+              <div class="status-value">Quantum Tunneling · WKB</div>
+              <div class="status-sub">Targeting JEI</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Program</div>
+              <div class="status-value">Exposure AI Academy</div>
+              <div class="status-sub">Full scholarship · 2026</div>
+            </div>
+          </div>
+        </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-eyebrow">Istanbul, Turkey · 2026</div>
-        <h1 class="hero-name">
-          Physics<br>researcher.<br><em>Health tech</em><br>founder.
-        </h1>
-        <p class="hero-bio">I'm a 16-year-old IB DP1 student working on physics, AI, and health technology. I try to build things I wish existed.</p>
-        <div class="hero-links">
-          <a href="#work" class="btn btn-primary">My work</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
-        </div>
-      </div>
-
-      <div class="status-stack">
-        <div class="status-card">
-          <div class="status-label">Active</div>
-          <div class="status-value"><span class="live-dot"></span>Corlumen - Stealth</div>
-          <div class="status-sub">Cardiovascular diagnostics startup</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">Competition</div>
-          <div class="status-value">GQMC 2026 Semi-Finalist</div>
-          <div class="status-sub">Global Quantum Mechanics Challenge</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">Research</div>
-          <div class="status-value">Quantum Tunneling · WKB</div>
-          <div class="status-sub">Targeting Journal of Emerging Investigators</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">Program</div>
-          <div class="status-value">Exposure AI Academy</div>
-          <div class="status-sub">Full scholarship · 2026</div>
+        <div class="nav-row">
+          <a href="/work.html" class="nav-card">
+            <div class="nav-card-label">Work</div>
+            <div class="nav-card-title">Research & Ventures</div>
+            <div class="nav-card-desc">Quantum physics, health tech, writing</div>
+          </a>
+          <a href="/awards.html" class="nav-card">
+            <div class="nav-card-label">Awards</div>
+            <div class="nav-card-title">Competitions & Programs</div>
+            <div class="nav-card-desc">GQMC, JLI, Exposure AI, and more</div>
+          </a>
+          <a href="/beliefs.html" class="nav-card">
+            <div class="nav-card-label">Beliefs</div>
+            <div class="nav-card-title">What I think is true</div>
+            <div class="nav-card-desc">Things I keep coming back to</div>
+          </a>
+          <a href="/contact.html" class="nav-card">
+            <div class="nav-card-label">Contact</div>
+            <div class="nav-card-title">Get in touch</div>
+            <div class="nav-card-desc">Email and LinkedIn</div>
+          </a>
         </div>
       </div>
     </div>
   </div>
+</main>
 
-  <!-- WORK -->
-  <div class="section reveal" id="work">
-    <div class="section-header">
-      <h2 class="sec-title">Work</h2>
-      <span class="sec-count">05 projects</span>
-    </div>
-    <div class="work-cols">
-      <div>
-        <div class="work-group-title">Research</div>
-        <div class="work-item">
-          <div class="work-name">
-            Quantum Tunneling in C–H Activation
-            <span class="work-tag">In progress</span>
-          </div>
-          <div class="work-desc">WKB numerical simulation of proton tunneling through asymmetric Eckart barriers in enzymatic catalysis. Kinetic isotope effect modeling and tunneling-corrected Arrhenius analysis in Python. Mentored by Doç. Dr. Ertuğrul Karaca (Nature editor, 2× PRL publications).</div>
-        </div>
-        <div class="work-item">
-          <div class="work-name">
-            Quantum-Assisted Hurricane Forecasting
-            <span class="work-tag">Submitted</span>
-          </div>
-          <div class="work-desc">Theoretical argument for quantum reservoir computing in chaotic atmospheric modeling. References a 2026 PRL result showing a 9-qubit processor outperforming classical neural networks on weather forecasting. Submitted to Pathways to Quantum, Global Industry Challenge.</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="work-group-title">Ventures</div>
-        <div class="work-item">
-          <div class="work-name">
-            Corlumen
-            <span class="work-tag">Stealth</span>
-          </div>
-          <div class="work-desc">Cardiovascular diagnostics startup. ESP32-based wearable biosensor (ECG, pulse, temperature) with Fourier-based real-time arrhythmia detection and an ML risk-scoring layer. Goal: make early cardiac screening accessible without a hospital visit.</div>
-        </div>
-        <div class="work-item">
-          <div class="work-name">
-            Netra
-            <span class="work-tag">Co-founder</span>
-          </div>
-          <div class="work-desc">Peer academic mentoring platform for IB and IGCSE students. The best guide through a curriculum is someone who just came out the other side.</div>
-        </div>
-        <div class="work-item">
-          <div class="work-name">
-            Teens in Innovation
-            <span class="work-tag">Intern · 2026</span>
-          </div>
-          <div class="work-desc">Competitive internship program placing student innovators in TEINN for growth. Accepted Summer 2026.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AWARDS -->
-  <div class="section reveal" id="awards">
-    <div class="section-header">
-      <h2 class="sec-title">Awards & Programs</h2>
-      <span class="sec-count">06 items</span>
-    </div>
-    <div class="awards-list">
-      <div class="award-item">
-        <div>
-          <div class="award-name">Exposure AI Academy</div>
-          <div class="award-detail">Awarded a full merit scholarship - 30 students selected. AI and project focus.</div>
-        </div>
-        <div class="award-badge">Full scholarship</div>
-      </div>
-      <div class="award-item">
-        <div>
-          <div class="award-name">GQMC 2026</div>
-          <div class="award-detail">Global Quantum Mechanics Challenge - Semi-Finalist. International competition open to high school and undergraduate students.</div>
-        </div>
-        <div class="award-badge">Semi-finalist</div>
-      </div>
-      <div class="award-item">
-        <div>
-          <div class="award-name">John Locke Global Essay Prize</div>
-          <div class="award-detail">Theology - Shortlisted. Essay on theology vs. neuroscience as frameworks for understanding religious experience. Commendation & bursary recipient.</div>
-        </div>
-        <div class="award-badge">Shortlisted</div>
-      </div>
-      <div class="award-item">
-        <div>
-          <div class="award-name">JLI Summer School</div>
-          <div class="award-detail">Selective Applied Mathematics Program at Cambridge. Maximum financial aid awarded.</div>
-        </div>
-        <div class="award-badge">Bursary</div>
-      </div>
-      <div class="award-item">
-        <div>
-          <div class="award-name">Breakthrough Junior Challenge</div>
-          <div class="award-detail">Heisenberg's Uncertainty Principle — 2-minute science video. In production, deadline September 2026.</div>
-        </div>
-        <div class="award-badge">In production</div>
-      </div>
-      <div class="award-item">
-        <div>
-          <div class="award-name">American Physical Society</div>
-          <div class="award-detail">Granted a membership as a high schooler.</div>
-        </div>
-        <div class="award-badge">Member</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="section reveal" id="contact">
-    <div class="contact-inner">
-      <h2 class="sec-title">Get in touch</h2>
-      <p>Open to research collaborations, mentorship, and conversations about physics, AI, and health technology.</p>
-      <div class="hero-links">
-        <a href="mailto:eycebeci61@gmail.com" class="btn btn-primary">Email</a>
-        <a href="https://www.linkedin.com/in/enesyigitcebeci" target="_blank" class="btn btn-ghost">LinkedIn</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <span>Enes Yiğit Cebeci · Istanbul</span>
-    <span class="green">2026</span>
-  </footer>
-
-</div>
+<footer>
+  <div>Enes Yiğit Cebeci · Istanbul</div>
+  <span>2026</span>
+</footer>
 
 <script>
-  // Ambient wave background
-  const canvas = document.getElementById('wave-canvas');
+  const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
   let t = 0;
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function drawWave() {
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(90,158,118,0.6)';
+    ctx.strokeStyle = 'rgba(90,158,118,0.7)';
     ctx.lineWidth = 1;
-
     for (let x = 0; x < canvas.width; x++) {
-      const y = canvas.height * 0.5
-        + Math.sin((x * 0.004) + t) * 60
-        + Math.sin((x * 0.008) + t * 1.3) * 30
-        + Math.sin((x * 0.002) + t * 0.7) * 80;
-      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      const y = canvas.height * 0.5 + Math.sin((x*0.004)+t)*70 + Math.sin((x*0.008)+t*1.3)*30 + Math.sin((x*0.002)+t*0.7)*90;
+      x === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
     ctx.stroke();
-
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(61,107,82,0.3)';
+    ctx.strokeStyle = 'rgba(61,107,82,0.35)';
     for (let x = 0; x < canvas.width; x++) {
-      const y = canvas.height * 0.45
-        + Math.sin((x * 0.003) + t * 0.8 + 1) * 50
-        + Math.sin((x * 0.007) + t * 1.1) * 20;
-      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      const y = canvas.height * 0.45 + Math.sin((x*0.003)+t*0.8+1)*50 + Math.sin((x*0.007)+t*1.1)*20;
+      x === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
     ctx.stroke();
-
-    t += 0.003;
-    requestAnimationFrame(drawWave);
+    t += 0.003; requestAnimationFrame(draw);
   }
-  drawWave();
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => observer.observe(r));
+  draw();
 </script>
-
 </body>
 </html>
