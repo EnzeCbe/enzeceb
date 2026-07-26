@@ -85,6 +85,7 @@
               <div class="item-tag">Planned - Currently my main focus.</div>
             </div>
             <div class="item-desc">Computational modeling of Bragg peak position in heterogeneous biological tissues. Interdisciplinary collaboration with a biology researcher. Python-based Bethe-Bloch implementation targeting variable RBE modeling. This is also for making Corlumen better and seeking possibilities in particle physics.</div>
+          </div>
         </div>
       </div>
 
@@ -124,6 +125,23 @@
 </footer>
 
 <script>
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('overlay');
+  
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
   reveals.forEach(r => obs.observe(r));
