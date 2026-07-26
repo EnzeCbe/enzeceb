@@ -3,25 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work - Enes Yiğit Cebeci</title>
+<title>Work — Enes Yiğit Cebeci</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
-  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; gap: 0; } }
+  .hamburger{width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;background:none;border:none;padding:4px;}
+  .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all 0.3s ease;transform-origin:center;}
+  .hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+  .hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+  .menu-overlay{position:fixed;inset:0;z-index:199;background:rgba(8,8,13,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+  .menu-overlay.open{opacity:1;pointer-events:all;}
+  .menu-links{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .menu-links a{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,7vw,5rem);color:var(--text-dim);letter-spacing:-0.02em;transition:color 0.15s,transform 0.15s;display:block;line-height:1.2;}
+  .menu-links a:hover{color:var(--text);transform:translateX(8px);}
+  .menu-links a em{font-style:italic;color:var(--green-bright);}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;background:rgba(8,8,13,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'DM Serif Display',serif;font-size:0.9rem;color:var(--text);opacity:0.7;position:relative;z-index:201;}
+  .nav-logo em{font-style:italic;color:var(--green-bright);}
+  .award-grid{display:flex;flex-direction:column;}
+  .award-item{display:grid;grid-template-columns:1fr auto;align-items:start;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);transition:padding-left 0.2s;}
+  .award-item:last-child{border-bottom:none;}
+  .award-item:hover{padding-left:6px;}
+  .award-name{font-weight:500;font-size:0.97rem;margin-bottom:5px;}
+  .award-detail{font-size:0.85rem;color:var(--text-dim);font-weight:300;line-height:1.6;}
+  .award-badge{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-bright);padding:5px 12px;border:1px solid rgba(90,158,118,0.25);border-radius:100px;white-space:nowrap;margin-top:2px;}
+  @media(max-width:640px){.award-item{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <nav>
-  <div class="inner">
-    <a href="/" class="nav-logo">Enes Yiğit <em>Cebeci</em></a>
-    <div class="navlinks">
-      <a href="/work.html" class="active">Work</a>
-      <a href="/awards.html">Awards</a>
-      <a href="/beliefs.html">Beliefs</a>
-      <a href="/contact.html">Contact</a>
-    </div>
-  </div>
+  <a href="/" class="nav-logo">E<em>C</em></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="menu-overlay" id="overlay">
+  <div class="menu-links">
+    <a href="/work.html">Work</a>
+    <a href="/awards.html">Awards</a>
+    <a href="/beliefs.html">Beliefs</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+</div>
 
 <main>
   <div class="wrap">
@@ -58,7 +81,7 @@
           </div>
            <div class="item">
             <div class="item-top">
-              <div class="item-name">Proton Beam Therapy — Bragg Peak Modeling</div>
+              <div class="item-name">Proton Beam Therapy - Bragg Peak Modeling</div>
               <div class="item-tag">Planned - Currently my main focus.</div>
             </div>
             <div class="item-desc">Computational modeling of Bragg peak position in heterogeneous biological tissues. Interdisciplinary collaboration with a biology researcher. Python-based Bethe-Bloch implementation targeting variable RBE modeling. This is also for making Corlumen better and seeking possibilities in particle physics.</div>
