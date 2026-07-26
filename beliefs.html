@@ -6,48 +6,45 @@
 <title>Beliefs - Enes Yiğit Cebeci</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .beliefs-list { display: flex; flex-direction: column; gap: 0; }
-  .belief {
-    padding: 28px 0;
-    border-bottom: 1px solid var(--border);
-    display: grid; grid-template-columns: 32px 1fr; gap: 20px;
-    align-items: start;
-    transition: padding-left 0.2s;
-  }
-  .belief:last-child { border-bottom: none; }
-  .belief:hover { padding-left: 4px; }
-  .belief-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem; color: var(--text-dimmer);
-    padding-top: 4px; letter-spacing: 0.06em;
-  }
-  .belief-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    line-height: 1.4; letter-spacing: -0.01em;
-    color: var(--text);
-  }
-  .belief-text em { font-style: italic; color: var(--green-bright); }
-  .belief-sub {
-    margin-top: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem; color: var(--text-dim);
-    font-weight: 300; line-height: 1.7;
-  }
+  .hamburger{width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;background:none;border:none;padding:4px;}
+  .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all 0.3s ease;transform-origin:center;}
+  .hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+  .hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+  .menu-overlay{position:fixed;inset:0;z-index:199;background:rgba(8,8,13,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+  .menu-overlay.open{opacity:1;pointer-events:all;}
+  .menu-links{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .menu-links a{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,7vw,5rem);color:var(--text-dim);letter-spacing:-0.02em;transition:color 0.15s,transform 0.15s;display:block;line-height:1.2;}
+  .menu-links a:hover{color:var(--text);transform:translateX(8px);}
+  .menu-links a em{font-style:italic;color:var(--green-bright);}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;background:rgba(8,8,13,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'DM Serif Display',serif;font-size:0.9rem;color:var(--text);opacity:0.7;position:relative;z-index:201;}
+  .nav-logo em{font-style:italic;color:var(--green-bright);}
+  .beliefs-list{display:flex;flex-direction:column;}
+  .belief{padding:28px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:32px 1fr;gap:20px;align-items:start;transition:padding-left 0.2s;}
+  .belief:last-child{border-bottom:none;}
+  .belief:hover{padding-left:4px;}
+  .belief-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-dimmer);padding-top:4px;letter-spacing:0.06em;}
+  .belief-text{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,2.5vw,1.4rem);line-height:1.4;letter-spacing:-0.01em;color:var(--text);}
+  .belief-text em{font-style:italic;color:var(--green-bright);}
+  .belief-sub{margin-top:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--text-dim);font-weight:300;line-height:1.7;}
 </style>
 </head>
 <body>
 <nav>
-  <div class="inner">
-    <a href="/" class="nav-logo">Enes Yiğit <em>Cebeci</em></a>
-    <div class="navlinks">
-      <a href="/work.html">Work</a>
-      <a href="/awards.html">Awards</a>
-      <a href="/beliefs.html" class="active">Beliefs</a>
-      <a href="/contact.html">Contact</a>
-    </div>
-  </div>
+  <a href="/" class="nav-logo">E<em>C</em></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="menu-overlay" id="overlay">
+  <div class="menu-links">
+    <a href="/work.html">Work</a>
+    <a href="/awards.html">Awards</a>
+    <a href="/beliefs.html">Beliefs</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+</div>
 
 <main>
   <div class="wrap">
@@ -56,7 +53,6 @@
       <h1 class="page-title">What I think<br>is <em>true</em></h1>
       <p class="page-desc">Things I keep coming back to. Some of these took years to figure out. Some I still don't fully understand.</p>
     </div>
-
     <div class="beliefs-list reveal">
       <div class="belief">
         <div class="belief-num">01</div>
@@ -86,14 +82,14 @@
       <div class="belief">
         <div class="belief-num">05</div>
         <div>
-          <div class="belief-text">Being cringe is never cringe. <em>Only the saying of it is cringe.</em></div>
+          <div class="belief-text">Being cringe is never cringe. <em>Just the saying of it is cringe.</em></div>
         </div>
       </div>
       <div class="belief">
         <div class="belief-num">06</div>
         <div>
           <div class="belief-text">You are never behind in life.</div>
-          <div class="belief-sub">The closer you get to the sun, the bigger the shadow grows behind you so ignore the shadow.</div>
+          <div class="belief-sub">The closer you get to the sun, the bigger the shadow grows behind you — ignore the shadow.</div>
         </div>
       </div>
     </div>
@@ -106,6 +102,20 @@
 </footer>
 
 <script>
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  overlay.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(e => e.forEach(r => { if(r.isIntersecting){ r.target.classList.add('visible'); obs.unobserve(r.target); } }), {threshold:0.1});
   reveals.forEach(r => obs.observe(r));
